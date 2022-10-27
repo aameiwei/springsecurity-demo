@@ -21,6 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //自定义登录页面
         http.formLogin()
+                /*
+                  <input type="text" name="username">
+                  <input type="password" name="password">
+                  与name相对应
+                */
+                .usernameParameter("username")
+                .passwordParameter("password")
                 //当发现、login的时候认为是登录，去执行 UserDetailsServiceImpl->loadUserByUsername,必须和表单提交的接口一样，回去执行自定义的登录逻辑
                 .loginProcessingUrl("/login")
                 //自定义登录页面
