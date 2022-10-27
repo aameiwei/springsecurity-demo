@@ -1,5 +1,7 @@
 package com.huo.springsecuritydemo.config;
 
+import com.huo.springsecuritydemo.handle.MyAuthenticationFailureHandler;
+import com.huo.springsecuritydemo.handle.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,9 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //自定义登录页面
                 .loginPage("/login.html")
                 //登陆成功要跳转的页面，必须是post请求
-                .successForwardUrl("/toMain")
+                //.successForwardUrl("/toMain")
+                //.successHandler(new MyAuthenticationSuccessHandler("https://www.baidu.com/"))
+                .successHandler(new MyAuthenticationSuccessHandler("/main.html"))
+
                 //登陆失败要跳转的页面，必须是post请求
-                .failureForwardUrl("/toError")
+                //.failureForwardUrl("/toError")
+                .failureHandler(new MyAuthenticationFailureHandler("/error.html"))
         ;
 
         //设置了自定义登陆页面之后，security提供的原始的认证将全部失效
