@@ -4,6 +4,7 @@ import com.huo.springsecuritydemo.handle.MyAuthenticationFailureHandler;
 import com.huo.springsecuritydemo.handle.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -35,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //自定义登录页面
                 .loginPage("/login.html")
                 //登陆成功要跳转的页面，必须是post请求
-                //.successForwardUrl("/toMain")
+                .successForwardUrl("/toMain")
                 //.successHandler(new MyAuthenticationSuccessHandler("https://www.baidu.com/"))
-                .successHandler(new MyAuthenticationSuccessHandler("/main.html"))
+                //.successHandler(new MyAuthenticationSuccessHandler("/main.html"))
 
                 //登陆失败要跳转的页面，必须是post请求
                 //.failureForwardUrl("/toError")
@@ -49,6 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //放行登录页面，登录页面、登陆失败页面都不需要认证
                 .antMatchers("/login.html","/error.html").permitAll()
+                //权限控制，这里严格区分大小写，具有admin权限的才能访问
+                .antMatchers("/main1.html").hasAuthority("admin")
+                //正则表达式指定不需要认证的范围
+                //.regexMatchers(HttpMethod.GET,"/demo").permitAll()
+                //mvc匹配
+                //.mvcMatchers("/demo").servletPath("/xxxx").permitAll()
                 //所以要对所有的请求做拦截做认证【必须是登录之后才能被访问】
                 .anyRequest().authenticated()
         ;

@@ -1,6 +1,7 @@
 package com.huo.springsecuritydemo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,6 +24,11 @@ public class LoginController {
     @RequestMapping("/toError")
     public String toError() {
         return "redirect:error.html";
+    }
+
+    @GetMapping("/demo")
+    public String demo() {
+        return "redirect:main.html";
     }
 
 }
