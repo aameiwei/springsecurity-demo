@@ -51,7 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //放行登录页面，登录页面、登陆失败页面都不需要认证
                 .antMatchers("/login.html","/error.html").permitAll()
                 //权限控制，这里严格区分大小写，具有admin权限的才能访问
-                .antMatchers("/main1.html").hasAuthority("admin")
+                //.antMatchers("/main1.html").hasAuthority("admin")
+                //以角色来控制访问
+                //                .antMatchers("/main1.html").hasRole("abc")
+                .antMatchers("/main1.html").hasAnyRole("abc","123","chat")
+                //基于ip地址
+                //.antMatchers("/main1.html").hasIpAddress("127.0.0.1")
+
                 //正则表达式指定不需要认证的范围
                 //.regexMatchers(HttpMethod.GET,"/demo").permitAll()
                 //mvc匹配
