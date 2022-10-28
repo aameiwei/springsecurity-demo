@@ -1,5 +1,6 @@
 package com.huo.springsecuritydemo.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ public class LoginController {
 //        return "redirect:main.html";
 //    }
 
+    //@Secured是专门用于判断是否具有角色的。相当于hasRole能写在方法或类上。参数要以ROLE_开头
     @RequestMapping("/toMain")
+    @Secured("ROLE_abc")
     public String toMain() {
         return "redirect:main.html";
     }

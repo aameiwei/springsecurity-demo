@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/main1.html").hasAuthority("admin")
                 //以角色来控制访问
                 //                .antMatchers("/main1.html").hasRole("abc")
-                .antMatchers("/main1.html").hasAnyRole("abc","123","chat")
+                //.antMatchers("/main1.html").hasAnyRole("abc","123","chat")
                 //基于ip地址
                 //.antMatchers("/main1.html").hasIpAddress("127.0.0.1")
 
@@ -69,9 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //mvc匹配
                 //.mvcMatchers("/demo").servletPath("/xxxx").permitAll()
                 //所以要对所有的请求做拦截做认证【必须是登录之后才能被访问】
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 //自定义access
-                .anyRequest().access("@myServiceImpl.hasPermission(request,authentication)")
+                //.anyRequest().access("@myServiceImpl.hasPermission(request,authentication)")
         ;
 
         //403异常
