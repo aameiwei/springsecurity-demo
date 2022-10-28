@@ -1,7 +1,9 @@
 package com.huo.springsecuritydemo.config;
 
+import com.huo.springsecuritydemo.handle.MyAccessDeniedHandler;
 import com.huo.springsecuritydemo.handle.MyAuthenticationFailureHandler;
 import com.huo.springsecuritydemo.handle.MyAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,6 +21,9 @@ import org.springframework.stereotype.Component;
  **/
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    MyAccessDeniedHandler myAccessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -43,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //登陆失败要跳转的页面，必须是post请求
                 //.failureForwardUrl("/toError")
                 .failureHandler(new MyAuthenticationFailureHandler("/error.html"))
+
         ;
 
         //设置了自定义登陆页面之后，security提供的原始的认证将全部失效
@@ -54,9 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/main1.html").hasAuthority("admin")
                 //以角色来控制访问
                 //                .antMatchers("/main1.html").hasRole("abc")
-                .antMatchers("/main1.html").hasAnyRole("abc","123","chat")
+                //.antMatchers("/main1.html").hasAnyRole("abc","123","chat")
                 //基于ip地址
-                //.antMatchers("/main1.html").hasIpAddress("127.0.0.1")
+                .antMatchers("/main1.html").hasIpAddress("127.0.0.1")
 
                 //正则表达式指定不需要认证的范围
                 //.regexMatchers(HttpMethod.GET,"/demo").permitAll()
@@ -65,6 +71,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //所以要对所有的请求做拦截做认证【必须是登录之后才能被访问】
                 .anyRequest().authenticated()
         ;
+
+        //403异常
+        http.exceptionHandling()
+                .accessDeniedHandler(myAccessDeniedHandler);
 
         //暂时理解为防火墙
         //关闭csrf防护
