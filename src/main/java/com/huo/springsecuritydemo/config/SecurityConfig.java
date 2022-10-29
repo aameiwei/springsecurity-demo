@@ -61,6 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(new MyAuthenticationFailureHandler("/error.html"))
 
         ;
+        //退出登录
+        http.logout()
+//                .logoutUrl("/user/logout")
+                .logoutUrl("/logout")
+                //退出成功跳转的页面
+                .logoutSuccessUrl("/login.html");
 
         //设置了自定义登陆页面之后，security提供的原始的认证将全部失效
         //授权认证
