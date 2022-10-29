@@ -8,7 +8,7 @@
 <body>
 <!--这里怎加了对csfr的输入-->
 <form action="/login" method="post" style="width: 25%;margin: 60px auto;">
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:if="${_csrf}">
     <label>
         用户名：
         <input type="text" name="username">
