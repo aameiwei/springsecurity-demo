@@ -1,0 +1,34 @@
+<! DOCTYPE htm1>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>thymeleaf-demo</title>
+</head>
+
+<body>
+这里的属性值都是从security的代码中得到的
+在类UsernamePasswordAuthenticationToken中的principal为主体，即UserDetailsServiceImpl中的实现User,credentials为凭证
+该类继承了AbstractAuthenticationToken authorities权限 authenticated认证 details为WebAuthenticationDetails类中的值
+<br/><br/><br/>
+登录账号:<span sec:authentication="name">123</span>
+登录账号:<span sec:authentication="principal.username">456</span><br/>
+凭证:<span sec:authentication="credentials">456</span><br/>
+权限和角色:<span sec:authentication="authorities">456</span><br/>
+客户端地址:<span sec:authentication="details.remoteAddress">456</span><br/>
+sessionId:<span sec:authentication="details.sessionId">456</span><br/>
+
+通过权限判断：
+<button sec:authorize="hasAuthority('/insert')">新增</button>
+<button sec:authorize="hasAuthority('/delete')">删除</button>
+<button sec:authorize="hasAuthority('/update')">修改</button>
+<button sec:authorize="hasAuthority('/select')">查看</button>
+<br/>
+通过角色判断：
+<button sec:authorize="hasRole('abc')">新增</button>
+<button sec:authorize="hasRole('abc')">删除</button>
+<button sec:authorize="hasRole('abc')">修改</button>
+<button sec:authorize="hasRole('abC')">查看</button>
+
+</body>
+</html>

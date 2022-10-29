@@ -39,9 +39,9 @@ public class LoginController {
         return "redirect:error.html";
     }
 
-    @GetMapping("/demo")
+    @RequestMapping("/demo")
     public String demo() {
-        return "redirect:main.html";
+        return "demo";
     }
 
 }
