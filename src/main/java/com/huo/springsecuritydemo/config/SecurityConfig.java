@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //当发现、login的时候认为是登录，去执行 UserDetailsServiceImpl->loadUserByUsername,必须和表单提交的接口一样，回去执行自定义的登录逻辑
                 .loginProcessingUrl("/login")
                 //自定义登录页面
-                .loginPage("/login.html")
+                //.loginPage("/login.html")
+                .loginPage("/showLogin")
                 //登陆成功要跳转的页面，必须是post请求
                 .successForwardUrl("/toMain")
                 //.successHandler(new MyAuthenticationSuccessHandler("https://www.baidu.com/"))
@@ -72,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //授权认证
         http.authorizeRequests()
                 //放行登录页面，登录页面、登陆失败页面都不需要认证
-                .antMatchers("/login.html","/error.html").permitAll()
+                .antMatchers("/login.html","/error.html","/showLogin").permitAll()
                 //权限控制，这里严格区分大小写，具有admin权限的才能访问
                 //.antMatchers("/main1.html").hasAuthority("admin")
                 //以角色来控制访问
@@ -105,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //暂时理解为防火墙
         //关闭csrf防护
-        http.csrf().disable();
+        //http.csrf().disable();
     }
 
     @Bean

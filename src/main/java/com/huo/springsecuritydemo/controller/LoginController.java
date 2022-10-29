@@ -44,4 +44,10 @@ public class LoginController {
         return "demo";
     }
 
+    @RequestMapping("/showLogin")
+    public String showLogin() {
+        return "login";
+    }
+
+
 }
