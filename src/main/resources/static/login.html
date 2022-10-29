@@ -8,13 +8,22 @@
 <!--这里的name属性的值必须是username和password，且必须为post请求才可正常登录，详情见在类UsernamePasswordAuthenticationFilter中的attemptAuthentication方法-->
 <!--如果要修改自己想定义的参数，需要在SecurityConfig的configure中修改，增加usernameParameter与passwordParameter属性-->
 <form action="/login" method="post" style="width: 25%;margin: 60px auto;">
-    <label> 账号：
+    <label>
+        用户名：
         <input type="text" name="username">
-    </label><br><br>
-    <label> 密码：
+    </label>
+    <br><br>
+    <label>
+        密&nbsp;&nbsp;&nbsp;码：
         <input type="password" name="password">
-    </label><br><br>
-    <input type="submit" value="登录" style="width: 100px;">
+    </label> <br><br>
+    <label>
+        记住我：
+        <input type="checkbox" name="remember-me" value="true">
+    </label>
+    <br><br>
+    <br><br>
+    <input type="submit" value="登录">
 </form>
 </body>
 </html>
